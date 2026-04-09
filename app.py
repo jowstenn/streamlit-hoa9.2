@@ -1,13 +1,13 @@
 import streamlit as st
 import tensorflow as tf
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_model():
   model=tf.keras.models.load_model('plant_classifier.hdf5')
   return model
 model=load_model()
 st.write("""
-# Plant Leaf Detection System"""
+# Plant Leaf Detection System by Jonathan"""
 )
 file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 
@@ -16,7 +16,7 @@ from PIL import Image,ImageOps
 import numpy as np
 def import_and_predict(image_data,model):
     size=(64,64)
-    image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
+    image=ImageOps.fit(image_data,size)
     img=np.asarray(image)
     img_reshape=img[np.newaxis,...]
     prediction=model.predict(img_reshape)
